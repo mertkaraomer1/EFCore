@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using EFCore.DataBaseFirst.DAL;
+using DataBaseFirstByScaffolt.Models;
 using Microsoft.EntityFrameworkCore;
-DbContextInitializer.Build();
-using (var _context = new AppDbContext())
+
+
+using (var context = new EFCoreDateBaseFirstDbContext())
 {
-    var products = await _context.Products.ToListAsync();
+    var products = await context.Products.ToListAsync();
     products.ForEach(p =>
     {
         Console.WriteLine($"{p.Id}:{p.Name}-{p.Price}-{p.Stock}");
