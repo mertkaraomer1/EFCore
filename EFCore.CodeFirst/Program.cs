@@ -9,10 +9,12 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+
+
     // var products =await _context.Products.Where(x => x.Id <5&&x.Name=="kalem 200"||x.Stock>200).ToListAsync();
-    var products = await _context.Products.FirstAsync(x => x.Id == 5);
-    var products1 = await _context.Products.SingleAsync(x => x.Id == 4);
-    var products2 = await _context.Products.FindAsync(10+);
+    //var products = await _context.Products.FirstAsync(x => x.Id == 5);
+    //var products1 = await _context.Products.SingleAsync(x => x.Id == 4);
+    //var products2 = await _context.Products.FindAsync(10 );
     //var product = _context.Products.ToList();
     //product.ForEach(p =>
     //{

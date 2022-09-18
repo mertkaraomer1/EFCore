@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    [Migration("20220916141915_AddCreatedDate_Database")]
-    partial class AddCreatedDate_Database
+    [Migration("20220918165121_UpdateProduct3")]
+    partial class UpdateProduct3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,11 @@ namespace EFCore.CodeFirst.Migrations
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Product_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_Id"), 1L, 1);
 
                     b.Property<int>("Barcode")
                         .HasColumnType("int");
@@ -40,7 +40,8 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -48,9 +49,9 @@ namespace EFCore.CodeFirst.Migrations
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Product_Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("ProductTb", "products");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,6 +4,7 @@ using EFCore.CodeFirst.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    partial class appDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220918164919_UpdateProduct2")]
+    partial class UpdateProduct2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,7 @@ namespace EFCore.CodeFirst.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nchar(100)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");

@@ -17,20 +17,29 @@ namespace EFCore.CodeFirst.DAL
             Initializer.Build();
             optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
         }
-        public override int SaveChanges()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ChangeTracker.Entries().ToList().ForEach(e =>
-            {
-                if (e.Entity is Product p)
-                {
-                    if (e.State == EntityState.Added)
-                    {
-                        p.CreatedDate = DateTime.Now;
-                    }
-                }
+            modelBuilder.Entity<Product>().HasKey(p => p.Product_Id);
+            //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength (100);
+            modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
 
-            });
-            return base.SaveChanges();
+           // modelBuilder.Entity<Product>().ToTable("ProductTBB", "productsTbb");
+            base.OnModelCreating(modelBuilder);
         }
+        //public override int SaveChanges()
+        //{
+        //    ChangeTracker.Entries().ToList().ForEach(e =>
+        //    {
+        //        if (e.Entity is Product p)
+        //        {
+        //            if (e.State == EntityState.Added)
+        //            {
+        //                p.CreatedDate = DateTime.Now;
+        //            }
+        //        }
+
+        //    });
+        //    return base.SaveChanges();
+        //}
     }
 }
