@@ -3,17 +3,39 @@ using EFCore.CodeFirst;
 using EFCore.CodeFirst.DAL;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    // var products =await _context.Products.Where(x => x.Id <5&&x.Name=="kalem 200"||x.Stock>200).ToListAsync();
+    var products = await _context.Products.FirstAsync(x => x.Id == 5);
+    var products1 = await _context.Products.SingleAsync(x => x.Id == 4);
+    var products2 = await _context.Products.FindAsync(10+);
+    //var product = _context.Products.ToList();
+    //product.ForEach(p =>
+    //{
+    //    p.Stock += 100;
+    //});
+    //_context.ChangeTracker.Entries().ToList().ForEach(e =>
+    //{
+    //    if (e.Entity is Product p)
+    //    {
+    //        Console.WriteLine(e.State);
+    //    }
+    //var product =_context.Products.First();
+    //product.Name = "dolma kalem 100";
+    //product.Price = 200;
+    //_context.Update(product);
 
-    _context.Products.Add(new() { Name = "Silgi 1", Price = 100, Stock = 200, Barcode = 500 });
-    _context.Products.Add(new() { Name = "Silgi 2", Price = 200, Stock = 300, Barcode = 510 });
-    _context.Products.Add(new() { Name = "Silgi 3", Price = 300, Stock = 100, Barcode = 520 });
+
+    //_context.Products.Add(new() { Name = "Silgi 1", Price = 100, Stock = 200, Barcode = 500 });
+    //_context.Products.Add(new() { Name = "Silgi 2", Price = 200, Stock = 300, Barcode = 510 });
+    //_context.Products.Add(new() { Name = "Silgi 3", Price = 300, Stock = 100, Barcode = 520 });
     //Console.WriteLine($"Context Id:{_context.ContextId}");
 
-    _context.SaveChanges();
+    //_context.SaveChanges();
     // var product=_context.Products.First(x=>x.Id==5);
     // _context.Update(new Product { Name = "Defter", Price = 500, Stock = 500, Barcode = 500 });
     //var product=await _context.Products.FirstAsync();
@@ -33,12 +55,14 @@ using (var _context = new appDbContext())
     //var products = await _context.Products.ToListAsync();
 
 
-   // products.ForEach(p =>
+    // products.ForEach(p =>
     //{
-        //p.Stock += 100;
-        //var state=_context.Entry(p).State;
-       //Console.WriteLine($"{p.Id}:{p.Name}-{p.Price}-{p.Stock} state:{state}");
-       
+    //p.Stock += 100;
+    //var state=_context.Entry(p).State;
+    //Console.WriteLine($"{p.Id}:{p.Name}-{p.Price}-{p.Stock} state:{state}");
+
     //});
- 
-}
+
+    //}) ;
+    //}
+} 
