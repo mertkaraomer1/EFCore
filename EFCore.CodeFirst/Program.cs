@@ -9,6 +9,15 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    var category = _context.Categories.First(x => x.Name == "Defterler");
+    var product = new Product() { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 3111,CategoryId=category.Id };
+    //var category=new Category() { Name="Defterler"};
+    //category.Products.Add( new () { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 311 });
+    //category.Products.Add(new() { Name = "Defter2", Price = 1000, Stock = 100, Barcode = 111 });
+    //var product=new Product() { Name="kalem2",Price=200,Stock=200,Barcode=321,Category=category};
+    _context.Add(category);
+    _context.SaveChanges();
+    Console.WriteLine("kaydedildi");
 
 
     // var products =await _context.Products.Where(x => x.Id <5&&x.Name=="kalem 200"||x.Stock>200).ToListAsync();
