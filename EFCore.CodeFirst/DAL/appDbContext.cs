@@ -11,7 +11,7 @@ namespace EFCore.CodeFirst.DAL
     public class appDbContext:DbContext
     {
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<Category> Categories { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Initializer.Build();
@@ -19,9 +19,12 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().HasKey(p => p.Product_Id);
+            //modelBuilder.Entity<Category>().HasMany(x=>x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.Category_Id);
+
+
+            //modelBuilder.Entity<Product>().HasKey(p => p.Product_Id);
             //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength (100);
-            modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
+            //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
 
            // modelBuilder.Entity<Product>().ToTable("ProductTBB", "productsTbb");
             base.OnModelCreating(modelBuilder);

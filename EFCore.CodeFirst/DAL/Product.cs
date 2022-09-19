@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace EFCore.CodeFirst.DAL
     public class Product
     {
         //[Column(Order = 1)]
-        public int Product_Id { get; set; }
+        public int Id { get; set; }
         // [Column("name2",Order =2)]
         //nulable açık ise nullable:false
         //[MaxLength(100)]
@@ -24,6 +25,9 @@ namespace EFCore.CodeFirst.DAL
         public int Stock { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int Barcode { get; set; }
-
+        //ekstra bişey belirtmeden foreignkey olarak algılıyor bu şekilde isimle
+        public int Category_Id { get; set; }
+        [ForeignKey("Category_Id")]
+        public Category Category { get; set; }
     }
 }
