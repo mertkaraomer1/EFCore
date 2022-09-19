@@ -10,21 +10,44 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //var student=new Student() { Name="Mert",Age=26};
+    //student.Teachers.Add(new() { Name = "Özge" });
+    //student.Teachers.Add(new() { Name = "Can" });
+    //_context.Add(student);
+
+    //var teacher = new Teacher()
+    //{
+    //    Name = "Mert ",
+    //    Students = new List<Student>()
+    //    {
+    //     new Student(){Name="murat",Age=24 },
+    //     new Student(){Name="hasan",Age=25} 
+    //    }
+    //};
+    //_context.Add(teacher);
+
+    var teacher = _context.Teachers.First(x => x.Name == "Özge");
+    teacher.Students.AddRange(new List<Student>{new () { Name = "okan", Age = 32 },
+        new() { Name ="oğulcan",Age=25 }});
+
+    
+
+
     //product->parent
     //productfeature->child
-    var category = _context.Categories.First(x => x.Name == "Silgiler");
-    var product = new Product
-    {
-        Name = "silgi10",
-        Price = 102,
-        Stock = 501,
-        Barcode = 442,
-        Category = category
-    };
+    //var category = _context.Categories.First(x => x.Name == "Silgiler");
+    //var product = new Product
+    //{
+    //    Name = "silgi10",
+    //    Price = 102,
+    //    Stock = 501,
+    //    Barcode = 442,
+    //    Category = category
+    //};
     //ProductFeature = new() { Color = "white", Height = 100, Width = 200 } };
-    ProductFeature productFeature = new ProductFeature() { Color = "blue", Width = 200, Height = 200, Product = product };
+    //ProductFeature productFeature = new ProductFeature() { Color = "blue", Width = 200, Height = 200, Product = product };
     //_context.Products.Add(product);
-    _context.productFeatures.Add(productFeature);
+    //_context.productFeatures.Add(productFeature);
     _context.SaveChanges();
     //var category = _context.Categories.First(x => x.Name == "Defterler");
     //var product = new Product() { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 3111,CategoryId=category.Id };
