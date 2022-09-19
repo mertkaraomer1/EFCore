@@ -26,8 +26,9 @@ namespace EFCore.CodeFirst.DAL
         public DateTime? CreatedDate { get; set; }
         public int Barcode { get; set; }
         //ekstra bişey belirtmeden foreignkey olarak algılıyor bu şekilde isimle
-        public int Category_Id { get; set; }
-        [ForeignKey("Category_Id")]
-        public Category Category { get; set; }
+        //public int Category_Id { get; set; }
+        //[ForeignKey("Category_Id")]
+        //public Category Category { get; set; }
+        public ProductFeature ProductFeature { get; set; }
     }
 }

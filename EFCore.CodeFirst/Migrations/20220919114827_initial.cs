@@ -36,35 +36,46 @@ namespace EFCore.CodeFirst.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Barcode = table.Column<int>(type: "int", nullable: false),
-                    Category_Id = table.Column<int>(type: "int", nullable: false)
+                    Barcode = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductTb", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductFeature",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Width = table.Column<int>(type: "int", nullable: false),
+                    Height = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductFeature", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductTb_Categories_Category_Id",
-                        column: x => x.Category_Id,
-                        principalTable: "Categories",
+                        name: "FK_ProductFeature_ProductTb_Id",
+                        column: x => x.Id,
+                        principalSchema: "products",
+                        principalTable: "ProductTb",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductTb_Category_Id",
-                schema: "products",
-                table: "ProductTb",
-                column: "Category_Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductTb",
-                schema: "products");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ProductFeature");
+
+            migrationBuilder.DropTable(
+                name: "ProductTb",
+                schema: "products");
         }
     }
 }

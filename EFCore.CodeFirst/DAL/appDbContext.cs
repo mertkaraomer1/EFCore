@@ -19,14 +19,18 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //////OneToOne
+            //modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.ProductRef_Id);
+            //////OneToMany
             //modelBuilder.Entity<Category>().HasMany(x=>x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.Category_Id);
-
+           //////OneToOne2
+           // modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.Id);
 
             //modelBuilder.Entity<Product>().HasKey(p => p.Product_Id);
             //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength (100);
             //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
 
-           // modelBuilder.Entity<Product>().ToTable("ProductTBB", "productsTbb");
+            // modelBuilder.Entity<Product>().ToTable("ProductTBB", "productsTbb");
             base.OnModelCreating(modelBuilder);
         }
         //public override int SaveChanges()
