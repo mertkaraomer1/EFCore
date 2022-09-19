@@ -4,19 +4,36 @@ using EFCore.CodeFirst.DAL;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Xml;
 
 Initializer.Build();
 
 using (var _context = new appDbContext())
 {
-    var category = _context.Categories.First(x => x.Name == "Defterler");
-    var product = new Product() { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 3111,CategoryId=category.Id };
+    //product->parent
+    //productfeature->child
+    var category = _context.Categories.First(x => x.Name == "Silgiler");
+    var product = new Product
+    {
+        Name = "silgi10",
+        Price = 102,
+        Stock = 501,
+        Barcode = 442,
+        Category = category
+    };
+    //ProductFeature = new() { Color = "white", Height = 100, Width = 200 } };
+    ProductFeature productFeature = new ProductFeature() { Color = "blue", Width = 200, Height = 200, Product = product };
+    //_context.Products.Add(product);
+    _context.productFeatures.Add(productFeature);
+    _context.SaveChanges();
+    //var category = _context.Categories.First(x => x.Name == "Defterler");
+    //var product = new Product() { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 3111,CategoryId=category.Id };
     //var category=new Category() { Name="Defterler"};
     //category.Products.Add( new () { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 311 });
     //category.Products.Add(new() { Name = "Defter2", Price = 1000, Stock = 100, Barcode = 111 });
     //var product=new Product() { Name="kalem2",Price=200,Stock=200,Barcode=321,Category=category};
-    _context.Add(category);
-    _context.SaveChanges();
+    //_context.Add(category);
+    //_context.SaveChanges();
     Console.WriteLine("kaydedildi");
 
 

@@ -29,6 +29,6 @@ namespace EFCore.CodeFirst.DAL
         public int CategoryId { get; set; }
         //[ForeignKey("Category_Id")]
         public Category Category { get; set; }
-        //public ProductFeature ProductFeature { get; set; }
+        public ProductFeature ProductFeature { get; set; }
     }
 }
