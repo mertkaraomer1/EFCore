@@ -88,6 +88,58 @@ namespace EFCore.CodeFirst.Migrations
                     b.ToTable("ProductFeature");
                 });
 
+            modelBuilder.Entity("EFCore.CodeFirst.DAL.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DAL.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("StudentTeacherManyToMany", b =>
+                {
+                    b.Property<int>("Student_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Teacher_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Student_Id", "Teacher_Id");
+
+                    b.HasIndex("Teacher_Id");
+
+                    b.ToTable("StudentTeacherManyToMany");
+                });
+
             modelBuilder.Entity("EFCore.CodeFirst.DAL.ProductFeature", b =>
                 {
                     b.HasOne("EFCore.CodeFirst.DAL.Product", "Product")
@@ -97,6 +149,23 @@ namespace EFCore.CodeFirst.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("StudentTeacherManyToMany", b =>
+                {
+                    b.HasOne("EFCore.CodeFirst.DAL.Student", null)
+                        .WithMany()
+                        .HasForeignKey("Student_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_StudentId");
+
+                    b.HasOne("EFCore.CodeFirst.DAL.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("Teacher_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_TeacherId");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>
