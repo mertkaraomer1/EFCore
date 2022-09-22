@@ -18,7 +18,7 @@ namespace EFCore.CodeFirst.DAL
         //public int ProductId { get; set; }//ıd hem Pk hemde Fk olarak kullanıcaz. Best practice
         //public int ProductRef_Id { get; set; }
         //[ForeignKey("ProductRef_Id")]
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
 
 

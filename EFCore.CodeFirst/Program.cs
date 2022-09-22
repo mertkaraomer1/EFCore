@@ -4,12 +4,67 @@ using EFCore.CodeFirst.DAL;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Drawing;
 using System.Xml;
 
 Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //////LazyLoadind
+    var category =await _context.Categories.FirstAsync();
+    var product =  category.Products;
+    Console.WriteLine("işlem bitti");
+    //////ExplicitLoding
+    //var category = _context.Categories.First();
+    //var product = _context.Products.First();
+    //if (true)
+    //{
+    //    _context.productFeatures.Where(x => x.Id == product.Id).First();
+    //    _context.Entry(product).Reference(x => x.ProductFeature).Load();
+    //    _context.Entry(category).Collection(x => x.Products).Load();
+    //    category.Products.ForEach(x =>
+    //    {
+    //        Console.WriteLine(x.Name);
+    //    });
+    //}
+
+
+
+
+    //////EagerLoding
+    //var category=new Category() { Name="Kalemler"};
+    //category.Products.Add(new() { Name = "Kalem1", Price = 100, Stock = 100, Barcode = 111, ProductFeature = new ProductFeature() { Color = "red", Height = 100, Width = 100 } });
+    //category.Products.Add(new() { Name = "Kalem2", Price = 100, Stock = 100, Barcode = 111, ProductFeature = new ProductFeature() { Color = "blue", Height = 100, Width = 100 } });
+    //_context.AddAsync(category);
+    //var categorywithProducts = _context.Categories.Include(x => x.Products).ThenInclude(x=>x.ProductFeature).First();
+    //categorywithProducts.Products.ForEach(Product=>
+    //{
+    //    Console.WriteLine($"{categorywithProducts.Name}-{Product.Name}-{Product.ProductFeature.Width}");
+    //});
+    //var product = _context.Products.Include(x => x.ProductFeature).Include(X => X.Category).First(); ;
+    
+    
+    //_context.Products.Add(new() { Name="kalem1",Price=100,Stock=1,Barcode=20,Kdv=18});
+    //var category = _context.Categories.First();
+    //var product = _context.Products.Where(x => x.CategoryId == category.Id).ToList();
+    //_context.RemoveRange(product);
+    //_context.Categories.Remove(category);
+
+    //var category = new Category()
+    //{
+    //    Name = "Kalemler",
+    //    Products = new List<Product>()
+    //{
+    //    new(){ Name = "kalem100", Price = 3000, Stock = 300, Barcode = 3111 },
+    //    new(){ Name = "kalem200", Price = 3000, Stock = 300, Barcode = 3111 },
+    //    new(){ Name = "kalem300", Price = 3000, Stock = 300, Barcode = 3111 }
+
+    //}
+    //};
+    //_context.Add(category);
+
+
     //var student=new Student() { Name="Mert",Age=26};
     //student.Teachers.Add(new() { Name = "Özge" });
     //student.Teachers.Add(new() { Name = "Can" });
@@ -25,12 +80,12 @@ using (var _context = new appDbContext())
     //    }
     //};
     //_context.Add(teacher);
+    //////ManyToMany
+    //var teacher = _context.Teachers.First(x => x.Name == "Özge");
+    //teacher.Students.AddRange(new List<Student>{new () { Name = "okan", Age = 32 },
+    //    new() { Name ="oğulcan",Age=25 }});
 
-    var teacher = _context.Teachers.First(x => x.Name == "Özge");
-    teacher.Students.AddRange(new List<Student>{new () { Name = "okan", Age = 32 },
-        new() { Name ="oğulcan",Age=25 }});
 
-    
 
 
     //product->parent

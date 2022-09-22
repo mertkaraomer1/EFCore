@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    [Migration("20220919125526_initial")]
-    partial class initial
+    [Migration("20220922145945_UpdatePriceForProduct3")]
+    partial class UpdatePriceForProduct3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,8 @@ namespace EFCore.CodeFirst.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -73,6 +74,26 @@ namespace EFCore.CodeFirst.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("ProductTb", "products");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DAL.ProductFeature", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Width")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("productFeatures");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>
@@ -86,9 +107,26 @@ namespace EFCore.CodeFirst.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("EFCore.CodeFirst.DAL.ProductFeature", b =>
+                {
+                    b.HasOne("EFCore.CodeFirst.DAL.Product", "Product")
+                        .WithOne("ProductFeature")
+                        .HasForeignKey("EFCore.CodeFirst.DAL.ProductFeature", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>
+                {
+                    b.Navigation("ProductFeature")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

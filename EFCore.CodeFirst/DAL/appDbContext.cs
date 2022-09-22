@@ -13,15 +13,34 @@ namespace EFCore.CodeFirst.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductFeature> productFeatures { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Student> Students { get; set; }
+        //public DbSet<Teacher> Teachers { get; set; }
+        //public DbSet<Student> Students { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //trace
+            //debug
+            //ınformation
+            //warning
+            //error
+            //critical
             Initializer.Build();
-            optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
+            optionsBuilder.LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information).UseLazyLoadingProxies().UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
+            ///////DatabaseGenerated Attribute
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).HasComputedColumnSql("[Price]*[Kdv]");
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedOnAdd();//ıdentity
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedOnUpdate();//computed
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedNever();//None
+            ///////Relationships Delete Behaviors
+            ////cascade
+            //modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
+            //////restrict
+            //modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Restrict);
+            //////SetNull
+            // modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.SetNull);
             //////OneToOne
             //modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.ProductRef_Id);
             //////OneToMany
