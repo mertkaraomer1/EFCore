@@ -24,7 +24,7 @@ namespace EFCore.CodeFirst.DAL
             //error
             //critical
             Initializer.Build();
-            optionsBuilder.LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information).UseLazyLoadingProxies().UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
+            optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

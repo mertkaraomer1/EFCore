@@ -12,9 +12,9 @@ Initializer.Build();
 using (var _context = new appDbContext())
 {
     //////LazyLoadind
-    var category =await _context.Categories.FirstAsync();
-    var product =  category.Products;
-    Console.WriteLine("işlem bitti");
+    //var category =await _context.Categories.FirstAsync();
+    //var product =  category.Products;
+    //Console.WriteLine("işlem bitti");
     //////ExplicitLoding
     //var category = _context.Categories.First();
     //var product = _context.Products.First();
