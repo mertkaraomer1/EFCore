@@ -11,6 +11,31 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //////TPH(Table-Per-Hierarchy)
+    //_context.Persons.Add(new Manager() { Name = "mert", Surname = "karaömer", Age = 26, Grade = 1 });
+    //_context.Persons.Add(new Employee() { Name = "mert", Surname = "karaömer", Age = 26, Salary = 10000 });
+    var manegers = _context.Managers.ToList();
+    var employees = _context.Employees.ToList();
+    var persons = _context.Persons.ToList();
+    persons.ForEach(p =>
+    {
+        switch(p)
+        {
+            case Manager manager:
+                Console.WriteLine($"manager entity:{manager.Grade}");
+                break;
+            case Employee employee:
+                Console.WriteLine($"employee entity:{employee.Salary}");
+                break;
+            default:
+                break;
+        }
+    });
+
+
+
+    
+
     //////LazyLoadind
     //var category =await _context.Categories.FirstAsync();
     //var product =  category.Products;
@@ -43,8 +68,8 @@ using (var _context = new appDbContext())
     //    Console.WriteLine($"{categorywithProducts.Name}-{Product.Name}-{Product.ProductFeature.Width}");
     //});
     //var product = _context.Products.Include(x => x.ProductFeature).Include(X => X.Category).First(); ;
-    
-    
+
+
     //_context.Products.Add(new() { Name="kalem1",Price=100,Stock=1,Barcode=20,Kdv=18});
     //var category = _context.Categories.First();
     //var product = _context.Products.Where(x => x.CategoryId == category.Id).ToList();
