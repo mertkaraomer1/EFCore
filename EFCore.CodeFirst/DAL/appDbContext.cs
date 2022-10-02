@@ -10,7 +10,7 @@ namespace EFCore.CodeFirst.DAL
 {
     public class appDbContext:DbContext
     {
-        public DbSet<BasePerson> Persons { get; set; }
+        //public DbSet<BasePerson> Persons { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         //public DbSet<Product> Products { get; set; }
@@ -31,6 +31,21 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Manager>().OwnsOne(x => x.Person, p=>
+            { p.Property(x => x.Name).HasColumnName("Name");
+                p.Property(x => x.Surname).HasColumnName("Surname");
+                p.Property(x => x.Age).HasColumnName("Age");
+                });
+            modelBuilder.Entity<Employee>().OwnsOne(x => x.Person, p =>
+            {
+                p.Property(x => x.Name).HasColumnName("Name");
+                p.Property(x => x.Surname).HasColumnName("Surname");
+                p.Property(x => x.Age).HasColumnName("Age");
+            });
+            //TPT
+            //modelBuilder.Entity<BasePerson>().ToTable("Persons");
+            //modelBuilder.Entity<Employee>().ToTable("Employees");
+            //modelBuilder.Entity<Manager>().ToTable("Managers");
             //modelBuilder.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
             ///////DatabaseGenerated Attribute
             //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).HasComputedColumnSql("[Price]*[Kdv]");

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace EFCore.CodeFirst.DAL
 {
-    public class Employee:BasePerson
+    public class Employee//:BasePerson
     {
+        public int Id { get; set; }
+        public Person  Person { get; set; }
         [Precision(18,2)]
         public decimal Salary { get; set; }
     }

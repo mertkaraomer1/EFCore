@@ -12,29 +12,51 @@ Initializer.Build();
 using (var _context = new appDbContext())
 {
     //////TPH(Table-Per-Hierarchy)
+    //_context.Managers.Add(new Manager() { Name = "mert", Surname = "karaömer", Age = 26, Grade = 1 });
+    //_context.Employees.Add(new Employee() { Name = "mert", Surname = "karaömer", Age = 26, Salary = 10000 });
     //_context.Persons.Add(new Manager() { Name = "mert", Surname = "karaömer", Age = 26, Grade = 1 });
     //_context.Persons.Add(new Employee() { Name = "mert", Surname = "karaömer", Age = 26, Salary = 10000 });
-    var manegers = _context.Managers.ToList();
-    var employees = _context.Employees.ToList();
-    var persons = _context.Persons.ToList();
-    persons.ForEach(p =>
-    {
-        switch(p)
-        {
-            case Manager manager:
-                Console.WriteLine($"manager entity:{manager.Grade}");
-                break;
-            case Employee employee:
-                Console.WriteLine($"employee entity:{employee.Salary}");
-                break;
-            default:
-                break;
-        }
-    });
+    //var manegers = _context.Managers.ToList();
+    //var employees = _context.Employees.ToList();
+    //var persons = _context.Persons.ToList();
+    //persons.ForEach(p =>
+    //{
+    //    switch (p)
+    //    {
+    //        case Manager manager:
+    //            Console.WriteLine($"manager entity:{manager.Grade}");
+    //            break;
+    //        case Employee employee:
+    //            Console.WriteLine($"employee entity:{employee.Salary}");
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //});
+    //////TPT(Table-Per-Type)
+    //_context.Managers.Add(new Manager() { Name = "mert", Surname = "karaömer", Age = 26, Grade = 1 });
+    //_context.Employees.Add(new Employee() { Name = "mert", Surname = "karaömermerr", Age = 26, Salary = 10000 });
+    //_context.Persons.Add(new Manager() { Name = "m1", Surname = "k1", Age = 26, Grade = 1 });
+    //_context.Persons.Add(new Employee() { Name = "m2", Surname = "k2", Age = 26, Salary = 10000 });
+    //var manegers = _context.Managers.ToList();
+    //var employees = _context.Employees.ToList();
+    //var persons = _context.Persons.ToList();
+    //persons.ForEach(p =>
+    //{
+    //    switch (p)
+    //    {
+    //        case Manager manager:
+    //            Console.WriteLine($"manager entity:{manager.Grade}");
+    //            break;
+    //        case Employee employee:
+    //            Console.WriteLine($"employee entity:{employee.Salary}");
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //});
 
 
-
-    
 
     //////LazyLoadind
     //var category =await _context.Categories.FirstAsync();
