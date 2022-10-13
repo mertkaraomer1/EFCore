@@ -10,15 +10,14 @@ namespace EFCore.CodeFirst.DAL
 {
     public class appDbContext:DbContext
     {
-        public DbSet<Insan> insans { get; set; }
-
-        public DbSet<ProductFull> productFulls  { get; set; }
+        //public DbSet<Insan> insans { get; set; }
+        //public DbSet<ProductFull> productFulls  { get; set; }
         //public DbSet<BasePerson> Persons { get; set; }
         //public DbSet<Manager> Managers { get; set; }
         //public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductFeature> productFeatures { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        //public DbSet<ProductFeature> productFeatures { get; set; }
+        //public DbSet<Category> Categories { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
         //public DbSet<Student> Students { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,6 +33,12 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //////Column(TypeName)
+            modelBuilder.Entity<Product>().Property(x => x.Url).HasColumnType("varchar(500)");
+            //////UniCode
+            modelBuilder.Entity<Product>().Property(x=>x.Name).IsUnicode(false);//varchar
+            //////NotMapped
+            //modelBuilder.Entity<Product>().Ignore(x => x.Barcode);
             //////Keyless appdbcontext tarafı
             //modelBuilder.Entity<ProductFull>().HasNoKey();
             //////Owned Entity Types

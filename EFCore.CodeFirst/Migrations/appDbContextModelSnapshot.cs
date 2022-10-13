@@ -36,20 +36,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DAL.Insan", b =>
-                {
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SurName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("insans");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>
@@ -71,7 +58,8 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(9, 2)
@@ -79,6 +67,10 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)");
 
                     b.HasKey("Id");
 
@@ -104,29 +96,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("productFeatures");
-                });
-
-            modelBuilder.Entity("EFCore.CodeFirst.DAL.ProductFull", b =>
-                {
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToTable("productFulls");
+                    b.ToTable("ProductFeature");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>

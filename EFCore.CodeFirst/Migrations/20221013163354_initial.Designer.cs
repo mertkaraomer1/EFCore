@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    [Migration("20221013145619_initial")]
+    [Migration("20221013163354_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>
@@ -60,7 +60,8 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(9, 2)
@@ -68,6 +69,10 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)");
 
                     b.HasKey("Id");
 
@@ -93,7 +98,7 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("productFeatures");
+                    b.ToTable("ProductFeature");
                 });
 
             modelBuilder.Entity("EFCore.CodeFirst.DAL.Product", b =>

@@ -15,11 +15,14 @@ namespace EFCore.CodeFirst.DAL
     {
         //[Column(Order = 1)]
         public int Id { get; set; }
+       // [Column(TypeName ="char(200)")]
+        public string Url { get; set; }
         // [Column("name2",Order =2)]
         //nulable açık ise nullable:false
         //[MaxLength(100)]
         //fluent validation
-       // [StringLength(100,MinimumLength =50)]
+        // [StringLength(100,MinimumLength =50)]
+        // [Unicode(false)]//varchar
         public string Name { get; set; }
         //[Column("price2", Order = 2,TypeName ="decimal(18,2)")]
         [Precision(9,2)]
@@ -28,6 +31,7 @@ namespace EFCore.CodeFirst.DAL
         public int Stock { get; set; }
        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
+        //[NotMapped]
         public int Barcode { get; set; }
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         //public decimal PriceKdv { get; set; }

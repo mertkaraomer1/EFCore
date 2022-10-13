@@ -13,7 +13,7 @@ namespace EFCore.CodeFirst.Migrations
                 name: "products");
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Category",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,7 +22,7 @@ namespace EFCore.CodeFirst.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,7 +32,8 @@ namespace EFCore.CodeFirst.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "varchar(500)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -43,15 +44,15 @@ namespace EFCore.CodeFirst.Migrations
                 {
                     table.PrimaryKey("PK_ProductTb", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductTb_Categories_CategoryId",
+                        name: "FK_ProductTb_Category_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "productFeatures",
+                name: "ProductFeature",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -61,9 +62,9 @@ namespace EFCore.CodeFirst.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productFeatures", x => x.Id);
+                    table.PrimaryKey("PK_ProductFeature", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_productFeatures_ProductTb_Id",
+                        name: "FK_ProductFeature_ProductTb_Id",
                         column: x => x.Id,
                         principalSchema: "products",
                         principalTable: "ProductTb",
@@ -81,14 +82,14 @@ namespace EFCore.CodeFirst.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "productFeatures");
+                name: "ProductFeature");
 
             migrationBuilder.DropTable(
                 name: "ProductTb",
                 schema: "products");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Category");
         }
     }
 }
