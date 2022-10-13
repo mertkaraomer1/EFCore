@@ -10,12 +10,15 @@ namespace EFCore.CodeFirst.DAL
 {
     public class appDbContext:DbContext
     {
+        public DbSet<Insan> insans { get; set; }
+
+        public DbSet<ProductFull> productFulls  { get; set; }
         //public DbSet<BasePerson> Persons { get; set; }
-        public DbSet<Manager> Managers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<ProductFeature> productFeatures { get; set; }
-        //public DbSet<Category> Categories { get; set; }
+        //public DbSet<Manager> Managers { get; set; }
+        //public DbSet<Employee> Employees { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductFeature> productFeatures { get; set; }
+        public DbSet<Category> Categories { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
         //public DbSet<Student> Students { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,17 +34,20 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Manager>().OwnsOne(x => x.Person, p=>
-            { p.Property(x => x.Name).HasColumnName("Name");
-                p.Property(x => x.Surname).HasColumnName("Surname");
-                p.Property(x => x.Age).HasColumnName("Age");
-                });
-            modelBuilder.Entity<Employee>().OwnsOne(x => x.Person, p =>
-            {
-                p.Property(x => x.Name).HasColumnName("Name");
-                p.Property(x => x.Surname).HasColumnName("Surname");
-                p.Property(x => x.Age).HasColumnName("Age");
-            });
+            //////Keyless appdbcontext tarafı
+            //modelBuilder.Entity<ProductFull>().HasNoKey();
+            //////Owned Entity Types
+            //modelBuilder.Entity<Manager>().OwnsOne(x => x.Person, p=>
+            //{ p.Property(x => x.Name).HasColumnName("Name");
+            //    p.Property(x => x.Surname).HasColumnName("Surname");
+            //    p.Property(x => x.Age).HasColumnName("Age");
+            //    });
+            //modelBuilder.Entity<Employee>().OwnsOne(x => x.Person, p =>
+            //{
+            //    p.Property(x => x.Name).HasColumnName("Name");
+            //    p.Property(x => x.Surname).HasColumnName("Surname");
+            //    p.Property(x => x.Age).HasColumnName("Age");
+            //});
             //TPT
             //modelBuilder.Entity<BasePerson>().ToTable("Persons");
             //modelBuilder.Entity<Employee>().ToTable("Employees");

@@ -11,6 +11,21 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //////Keyless
+//    var insans = _context.insans.ToList();
+//    //_context.insans.Add(new Insan() { Name = "mert", SurName = "karaömer" });//pk yoksa işlemi gerçekleştiremiyoruz hatası verdi
+//    var productFulls = _context.productFulls.FromSqlRaw(@"select p.Id, c.Name'CAtegoryName' ,p.Name , p.Price,pf.Height from products.ProductTb p
+//join productFeatures pf on p.Id=pf.Id
+//join Categories c on p.CategoryId=c.Id").ToList();
+    //var category = new Category() { Name = "Kalemler" };
+    //category.Products.Add(new() { Name = "Kalem1", Price = 100, Stock = 100, Barcode = 111, ProductFeature = new 
+    //    ProductFeature() { Color = "red", Height = 100, Width = 100 } });
+    //category.Products.Add(new() { Name = "Kalem2", Price = 100, Stock = 100, Barcode = 111, ProductFeature = new 
+    //    ProductFeature() { Color = "blue", Height = 100, Width = 100 } });
+    //_context.Categories.Add(category);
+
+
+
     //////TPH(Table-Per-Hierarchy)
     //_context.Managers.Add(new Manager() { Name = "mert", Surname = "karaömer", Age = 26, Grade = 1 });
     //_context.Employees.Add(new Employee() { Name = "mert", Surname = "karaömer", Age = 26, Salary = 10000 });
