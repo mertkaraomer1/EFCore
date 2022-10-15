@@ -11,12 +11,15 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //////Index
+    //_context.Products.Where(x => x.Name == "kalem1").Select(x => new { name = x.Name, price = x.Price, stock = x.Stock, barcode = x.Barcode });
+    // _context.Products.Add(new() { Name = "KALEM1", Price = 100, DiscountPrice = 180, Barcode = 123, Stock = 23, Url = "ABA" });
     //////Keyless
-//    var insans = _context.insans.ToList();
-//    //_context.insans.Add(new Insan() { Name = "mert", SurName = "karaömer" });//pk yoksa işlemi gerçekleştiremiyoruz hatası verdi
-//    var productFulls = _context.productFulls.FromSqlRaw(@"select p.Id, c.Name'CAtegoryName' ,p.Name , p.Price,pf.Height from products.ProductTb p
-//join productFeatures pf on p.Id=pf.Id
-//join Categories c on p.CategoryId=c.Id").ToList();
+    //    var insans = _context.insans.ToList();
+    //    //_context.insans.Add(new Insan() { Name = "mert", SurName = "karaömer" });//pk yoksa işlemi gerçekleştiremiyoruz hatası verdi
+    //    var productFulls = _context.productFulls.FromSqlRaw(@"select p.Id, c.Name'CAtegoryName' ,p.Name , p.Price,pf.Height from products.ProductTb p
+    //join productFeatures pf on p.Id=pf.Id
+    //join Categories c on p.CategoryId=c.Id").ToList();
     //var category = new Category() { Name = "Kalemler" };
     //category.Products.Add(new() { Name = "Kalem1", Price = 100, Stock = 100, Barcode = 111, ProductFeature = new 
     //    ProductFeature() { Color = "red", Height = 100, Width = 100 } });

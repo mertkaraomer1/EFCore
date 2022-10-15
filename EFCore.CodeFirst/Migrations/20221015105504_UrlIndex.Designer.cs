@@ -4,6 +4,7 @@ using EFCore.CodeFirst.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    partial class appDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221015105504_UrlIndex")]
+    partial class UrlIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,15 +32,8 @@ namespace EFCore.CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Barcode")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("DiscountPrice")
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -60,15 +55,9 @@ namespace EFCore.CodeFirst.Migrations
 
                     b.HasIndex("Name");
 
-                    SqlServerIndexBuilderExtensions.IncludeProperties(b.HasIndex("Name"), new[] { "Price", "Stock" });
-
                     b.HasIndex("Url");
 
-                    b.HasIndex("Name", "Url");
-
                     b.ToTable("Products");
-
-                    b.HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
                 });
 #pragma warning restore 612, 618
         }

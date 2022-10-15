@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace EFCore.CodeFirst.DAL
 {
-    [Table("ProductTb",Schema ="products")]
+    [Index(nameof(Name),nameof(Url))]
+    [Index(nameof(Url))]
+    [Index(nameof(Name))]
+   // [Table("ProductTb",Schema ="products")]
     public class Product
     {
         //[Column(Order = 1)]
@@ -28,17 +31,19 @@ namespace EFCore.CodeFirst.DAL
         [Precision(9,2)]
         public decimal Price { get; set; }
         //public int Kdv { get; set; }
+        [Precision(9, 2)]
+        public decimal DiscountPrice { get; set; }
         public int Stock { get; set; }
        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         //[NotMapped]
         public int Barcode { get; set; }
-        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        //public decimal PriceKdv { get; set; }
-        //ekstra bişey belirtmeden foreignkey olarak algılıyor bu şekilde isimle
-        //public int? CategoryId { get; set; }
-        //[ForeignKey("Category_Id")]
-        public virtual Category Category { get; set; }
-        public virtual ProductFeature ProductFeature { get; set; }
+        ////[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        ////public decimal PriceKdv { get; set; }
+        ////ekstra bişey belirtmeden foreignkey olarak algılıyor bu şekilde isimle
+        ////public int? CategoryId { get; set; }
+        ////[ForeignKey("Category_Id")]
+        //public virtual Category Category { get; set; }
+        //public virtual ProductFeature ProductFeature { get; set; }
     }
 }

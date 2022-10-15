@@ -33,6 +33,10 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
+            //////Index
+            //    _context.Products.Where(x => x.Name == "kalem1").Select(x => new { name = x.Name, price = x.Price, stock = x.Stock, barcode = x.Barcode });
+            modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x =>new { x.Price,x.Stock});
             //////Column(TypeName)
             modelBuilder.Entity<Product>().Property(x => x.Url).HasColumnType("varchar(500)");
             //////UniCode
