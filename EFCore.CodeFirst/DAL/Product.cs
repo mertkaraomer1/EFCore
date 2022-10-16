@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace EFCore.CodeFirst.DAL
 {
-    [Index(nameof(Name),nameof(Url))]
-    [Index(nameof(Url))]
-    [Index(nameof(Name))]
+    //[Index(nameof(Name),nameof(Url))]
+    //[Index(nameof(Url))]
+    //[Index(nameof(Name))]
    // [Table("ProductTb",Schema ="products")]
     public class Product
     {
         //[Column(Order = 1)]
         public int Id { get; set; }
        // [Column(TypeName ="char(200)")]
-        public string Url { get; set; }
+       // public string Url { get; set; }
         // [Column("name2",Order =2)]
         //nulable açık ise nullable:false
         //[MaxLength(100)]
@@ -31,8 +31,8 @@ namespace EFCore.CodeFirst.DAL
         [Precision(9,2)]
         public decimal Price { get; set; }
         //public int Kdv { get; set; }
-        [Precision(9, 2)]
-        public decimal DiscountPrice { get; set; }
+        //[Precision(9, 2)]
+        //public decimal DiscountPrice { get; set; }
         public int Stock { get; set; }
        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
@@ -41,9 +41,9 @@ namespace EFCore.CodeFirst.DAL
         ////[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         ////public decimal PriceKdv { get; set; }
         ////ekstra bişey belirtmeden foreignkey olarak algılıyor bu şekilde isimle
-        ////public int? CategoryId { get; set; }
-        ////[ForeignKey("Category_Id")]
-        //public virtual Category Category { get; set; }
-        //public virtual ProductFeature ProductFeature { get; set; }
+        public int? CategoryId { get; set; }
+        //[ForeignKey("Category_Id")]
+        public virtual Category Category { get; set; }
+        public virtual ProductFeature ProductFeature { get; set; }
     }
 }

@@ -5,15 +5,146 @@ using EFCore.CodeFirst.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Xml;
 
 Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //////Full Outher Join
+    //var resultLeft = await (from p in _context.Products
+    //                        join pf in _context.productFeatures on p.Id equals pf.Id into pflist
+    //                        from pf in pflist.DefaultIfEmpty()
+    //                        select new
+    //                        {
+    //                            id=p.Id,
+    //                            nameof=p.Name,
+    //                            color=pf.Color
+    //                        }).ToListAsync();
+    ////query syntax denir.
+    //var resultRight = await (from pf in _context.productFeatures
+    //                        join p in _context.Products on pf.Id equals p.Id into plist
+    //                        from p in plist.DefaultIfEmpty()
+    //                        select new
+    //                        {
+    //                            id = p.Id,
+    //                            nameof = p.Name,
+    //                            color = pf.Color
+    //                        }).ToListAsync();
+
+    //var outherJoin=resultLeft.Union(resultRight);
+    //Console.WriteLine("");
+
+    //////Left Join
+    //var result = await (from p in _context.Products
+    //                    join pf in _context.productFeatures on p.Id equals pf.Id
+    //                    into pflist
+    //                    from pf in pflist.DefaultIfEmpty()
+    //                    select new
+    //                    {
+    //                        ProductName = p.Name,
+    //                        ProductColor = pf.Color,
+    //                        PruductWidth = (int?)pf.Width == null ? 5 : pf.Width
+
+    //                    }).ToListAsync();
+    //Console.WriteLine("");
+
+    //////Right Join
+    //var Rightresult = await (from pf in _context.productFeatures
+    //                    join p in _context.Products on pf.Id equals p.Id
+    //                    into plist
+    //                    from p in plist.DefaultIfEmpty()
+    //                    select new
+    //                    {
+    //                        ProductName = p.Name,
+    //                        PruductPrice = (decimal?)p.Price,
+    //                        ProductColor = pf.Color,
+    //                        PruductWidth = pf.Width 
+
+    //                    }).ToListAsync();
+    //Console.WriteLine("");
+
+    //////2'li Join
+    /*var result = _context.Categories.Join(_context.Products, x => x.Id, y => y.CategoryId, (c, p) => p).ToList();*/ //new
+                                                                                                                      //{
+                                                                                                                      //    CategoryName = c.Name,
+                                                                                                                      //    ProductName = p.Name,
+                                                                                                                      //    PruductPrice = p.Price,
+                                                                                                                      //}).ToList();
+                                                                                                                      //var result2=(from c in _context.Categories join p in _context.Products on c.Id equals p.CategoryId select new
+                                                                                                                      //{
+                                                                                                                      //    CategoryName=c.Name,
+                                                                                                                      //    ProductName = p.Name,
+                                                                                                                      //     PruductPrice = p.Price,
+                                                                                                                      //}).ToList();
+                                                                                                                      //Console.WriteLine("");
+
+    //////3'lü Join
+    ////method Syntax denir
+    //var result =_context.Categories
+    //.Join(_context.Products,c=>c.Id,p=>p.CategoryId,(c,p)=>new {c,p})
+    //.Join(_context.productFeatures, x => x.p.Id, y => y.Id, (c, pf) => new
+    //{
+    //    CategoryName = c.c.Name,
+    //       ProductName = c.p.Name,
+    //        PruductFeature= pf.Color
+
+    //}).ToList();
+
+    //Console.WriteLine("");
+    //var result2 =(from c in _context.Categories
+    //             join p in _context.Products on c.Id equals p.CategoryId
+    //             join pf in _context.productFeatures on p.Id equals pf.Id
+    //             select new 
+    //             {
+    //                 c,p,pf
+    //                 //CategoryName = c.Name,
+    //                 // ProductName = p.Name,
+    //                 //PruductFeature= pf.Color
+
+    //             }).ToList();
+    //Console.WriteLine("");
+    //var category = new Category() { Name = "Kalemler" };
+    //category.Products.Add(new()
+    //{
+    //    Name = "Kalem1",
+    //    Price = 100,
+    //    Stock = 100,
+    //    Barcode = 111,
+    //    ProductFeature = new
+    //    ProductFeature()
+    //    { Color = "red", Height = 100, Width = 100 }
+    //});
+    //category.Products.Add(new()
+    //{
+    //    Name = "Kalem2",
+    //    Price = 100,
+    //    Stock = 100,
+    //    Barcode = 111,
+    //    ProductFeature = new
+    //    ProductFeature()
+    //    { Color = "blue", Height = 100, Width = 100 }
+    //});
+    //_context.Categories.Add(category);
+    //_context.SaveChanges();
+    //Console.WriteLine("kaydedildi");
+
+    //////Client vs Server Evaluation
+    ////var persons=_context.Persons.ToList().Where(x=> FormatPhone(x.Phone)== "05432245212").ToList();
+    //var persons = _context.Persons.ToList().Select(x => new {personname=x.Name,personphone=FormatPhone(x.Phone)}).ToList();
+    ////_context.Persons.Add(new Person() { Name = "mert", Phone = "05432245212" });
+    ////_context.Persons.Add(new Person() { Name = "Caner", Phone = "05433345412" });
+    //string FormatPhone(string Phone)
+    //{
+    //    return Phone.Substring(1, Phone.Length - 1);
+    //}
+
     //////Index
     //_context.Products.Where(x => x.Name == "kalem1").Select(x => new { name = x.Name, price = x.Price, stock = x.Stock, barcode = x.Barcode });
     // _context.Products.Add(new() { Name = "KALEM1", Price = 100, DiscountPrice = 180, Barcode = 123, Stock = 23, Url = "ABA" });
+
+
     //////Keyless
     //    var insans = _context.insans.ToList();
     //    //_context.insans.Add(new Insan() { Name = "mert", SurName = "karaömer" });//pk yoksa işlemi gerçekleştiremiyoruz hatası verdi
@@ -51,6 +182,8 @@ using (var _context = new appDbContext())
     //            break;
     //    }
     //});
+
+
     //////TPT(Table-Per-Type)
     //_context.Managers.Add(new Manager() { Name = "mert", Surname = "karaömer", Age = 26, Grade = 1 });
     //_context.Employees.Add(new Employee() { Name = "mert", Surname = "karaömermerr", Age = 26, Salary = 10000 });
@@ -145,6 +278,8 @@ using (var _context = new appDbContext())
     //    }
     //};
     //_context.Add(teacher);
+
+
     //////ManyToMany
     //var teacher = _context.Teachers.First(x => x.Name == "Özge");
     //teacher.Students.AddRange(new List<Student>{new () { Name = "okan", Age = 32 },
@@ -168,7 +303,7 @@ using (var _context = new appDbContext())
     //ProductFeature productFeature = new ProductFeature() { Color = "blue", Width = 200, Height = 200, Product = product };
     //_context.Products.Add(product);
     //_context.productFeatures.Add(productFeature);
-    _context.SaveChanges();
+    //_context.SaveChanges();
     //var category = _context.Categories.First(x => x.Name == "Defterler");
     //var product = new Product() { Name = "Defter1", Price = 3000, Stock = 300, Barcode = 3111,CategoryId=category.Id };
     //var category=new Category() { Name="Defterler"};
@@ -177,7 +312,7 @@ using (var _context = new appDbContext())
     //var product=new Product() { Name="kalem2",Price=200,Stock=200,Barcode=321,Category=category};
     //_context.Add(category);
     //_context.SaveChanges();
-    Console.WriteLine("kaydedildi");
+    // Console.WriteLine("kaydedildi");
 
 
     // var products =await _context.Products.Where(x => x.Id <5&&x.Name=="kalem 200"||x.Stock>200).ToListAsync();

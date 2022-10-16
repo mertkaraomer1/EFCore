@@ -12,16 +12,17 @@ namespace EFCore.CodeFirst.DAL
     {
         //public DbSet<Insan> insans { get; set; }
         //public DbSet<ProductFull> productFulls  { get; set; }
-        //public DbSet<BasePerson> Persons { get; set; }
+        //public DbSet<Person> Persons { get; set; }
         //public DbSet<Manager> Managers { get; set; }
         //public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
-        //public DbSet<ProductFeature> productFeatures { get; set; }
-        //public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductFeature> productFeatures { get; set; }
+        public DbSet<Category> Categories { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
         //public DbSet<Student> Students { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             //trace
             //debug
             //ınformation
@@ -29,18 +30,18 @@ namespace EFCore.CodeFirst.DAL
             //error
             //critical
             Initializer.Build();
-            optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
+            optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
-            //////Index
-            //    _context.Products.Where(x => x.Name == "kalem1").Select(x => new { name = x.Name, price = x.Price, stock = x.Stock, barcode = x.Barcode });
-            modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x =>new { x.Price,x.Stock});
-            //////Column(TypeName)
-            modelBuilder.Entity<Product>().Property(x => x.Url).HasColumnType("varchar(500)");
-            //////UniCode
-            modelBuilder.Entity<Product>().Property(x=>x.Name).IsUnicode(false);//varchar
+            //modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
+            ////////Index
+            ////    _context.Products.Where(x => x.Name == "kalem1").Select(x => new { name = x.Name, price = x.Price, stock = x.Stock, barcode = x.Barcode });
+            //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x =>new { x.Price,x.Stock});
+            ////////Column(TypeName)
+            //modelBuilder.Entity<Product>().Property(x => x.Url).HasColumnType("varchar(500)");
+            ////////UniCode
+            //modelBuilder.Entity<Product>().Property(x=>x.Name).IsUnicode(false);//varchar
             //////NotMapped
             //modelBuilder.Entity<Product>().Ignore(x => x.Barcode);
             //////Keyless appdbcontext tarafı
