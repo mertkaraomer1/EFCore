@@ -12,6 +12,19 @@ Initializer.Build();
 
 using (var _context = new appDbContext())
 {
+    //var id = 1;
+    //decimal price = 300;
+    //var products=await _context.Products.FromSqlRaw("select * from products").ToListAsync();
+    ////parametre verilmiş hali
+    //var product = await _context.Products.FromSqlRaw("select * from products where id={0}",id).FirstAsync();
+    //var productprice = await _context.Products.FromSqlRaw("select * from products where price>{0}", price).FirstAsync();
+    //var productprice2 = await _context.Products.FromSqlInterpolated($"select * from products where price>{price}" ).FirstAsync();
+
+
+    var products = await _context.productsEssentials.FromSqlRaw("select Name,Price from products").ToListAsync();
+    var products1 = await _context.productWidthFeatures.FromSqlRaw("select p.Id,p.Name,p.Price,pf.Color,pf.Height from Products p\r\ninner join productFeatures pf on p.Id=pf.Id").ToListAsync();
+    Console.WriteLine("");
+
     //////Full Outher Join
     //var resultLeft = await (from p in _context.Products
     //                        join pf in _context.productFeatures on p.Id equals pf.Id into pflist

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCore.CodeFirst.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace EFCore.CodeFirst.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductFeature> productFeatures { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<productsEssential > productsEssentials { get; set; }
+        public DbSet<ProductWidthFeature> productWidthFeatures { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
         //public DbSet<Student> Students { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,6 +37,9 @@ namespace EFCore.CodeFirst.DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<productsEssential>().Ignore(x=>x.Price);
+            modelBuilder.Entity<productsEssential>().HasNoKey();
+            modelBuilder.Entity<ProductWidthFeature>().HasNoKey();
             //modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
             ////////Index
             ////    _context.Products.Where(x => x.Name == "kalem1").Select(x => new { name = x.Name, price = x.Price, stock = x.Stock, barcode = x.Barcode });
